@@ -67,19 +67,19 @@ git clone https://github.com/your-username/profi-t-monitor-bot.git
 cd profi-t-monitor-bot
 </details>
 
-<details><summary>Установите зависимости:</summary>
-<br>
+<details><summary>Установите зависимости:</summary><br>
+
 
 bash
 Copy
 pip install -r requirements.txt
 </details>
 
-<details><summary>Настройте конфигурацию:</summary>
+<details><summary>Настройте конфигурацию:</summary><br>
 nano bot/config.py
 </details>
 
-<details><summary>Запустите бота:</summary>
+<details><summary>Запустите бота:</summary><br>
 python bot/main.py
 </details>
 

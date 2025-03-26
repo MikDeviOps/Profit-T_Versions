@@ -26,6 +26,7 @@ async def cmd_start(message: Message):
 {hbold('Автор:')} Михаил Горчаков (@Mikdevops)
 {hbold('Версия:')} 1.0
 {hbold('GitHub:')} https://github.com/MikDeviOps
+{hbold('GitHub-Project:')} https://github.com/MikDeviOps/Profit-T_Versions
 
 {hbold('Основные возможности:')}
 🔹 Автоматический мониторинг изменений

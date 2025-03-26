@@ -32,4 +32,4 @@ if not LOG_FOLDER.exists():
 
 WEB_VERSION_URL = os.getenv('WEB_VERSION_URL', '')
 MAX_MESSAGE_LENGTH = int(os.getenv('MAX_MESSAGE_LENGTH', '4000'))
-MAX_FILES_IN_SUMMARY = int(os.getenv('MAX_FILES_IN_SUMMARY', '100'))
+MAX_FILES_IN_SUMMARY = int(os.getenv('MAX_FILES_IN_SUMMARY', '1000'))

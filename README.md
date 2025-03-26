@@ -44,18 +44,19 @@
 ## 🏗 Архитектура
 
 ```text
-profi-t-monitor-bot/
-├── bot/
-│   ├── config.py         # Настройки бота
-│   ├── keyboards.py      # Клавиатуры
-│   ├── main.py           # Точка входа
-│   ├── routers.py        # Обработчики команд
-│   └── services/         # Бизнес-логика
-│       ├── parser.py     # Парсер изменений
-│       ├── reporter.py   # Генератор отчетов
-│       └── utils.py      # Вспомогательные функции
-├── README.md             # Документация
-└── requirements.txt      # Зависимости
+bot/
+│   ├── __init__.py
+│   ├── config.py
+│   ├── keyboards.py
+│   ├── routers.py
+│   ├── check_updates.py
+│   ├── services/
+│   │   ├── __init__.py
+│   │   ├── parser.py
+│   │   ├── reporter.py
+│   │   └── utils.py
+├── main.py
+├── .env
 ```
 ## 🚀 Быстрый старт
 <details><summary>Клонируйте репозиторий:</summary>

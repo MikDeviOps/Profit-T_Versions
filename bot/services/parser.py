@@ -45,8 +45,7 @@ class ChangeLogParser:
                 continue
         return 'utf-8'
 
-    def _parse_content(self, content: str) -> List[Dict]:
-        """Анализирует содержимое файла"""
+    def _parse_content(self, content: str) -> List[Dict]: # Анализирует содержимое файла
         self.changes = []
 
         for line in content.splitlines():
@@ -55,19 +54,16 @@ class ChangeLogParser:
 
         return self.changes
 
-    def _process_line(self, line: str) -> None:
-        """Обрабатывает строку лога"""
+    def _process_line(self, line: str) -> None: # Обрабатывает строку лога
         if self._is_change_entry(line):
             self._parse_change_entry(line)
         elif self.changes and (desc := self._clean_description_line(line)):
             self.changes[-1]['description'].append(desc)
 
-    def _is_change_entry(self, line: str) -> bool:
-        """Проверяет, является ли строка записью об изменении"""
+    def _is_change_entry(self, line: str) -> bool: # Проверяет, является ли строка записью об изменении
         return bool(self._pattern.match(line))
 
-    def _parse_change_entry(self, line: str) -> None:
-        """Извлекает данные об изменении"""
+    def _parse_change_entry(self, line: str) -> None: # Извлекает данные об изменении
         if match := self._pattern.match(line):
             self.changes.append({
                 'date': match.group(1),
@@ -79,8 +75,7 @@ class ChangeLogParser:
             })
 
     @staticmethod
-    def _clean_description_line(line: str) -> Optional[str]:
-        """Очищает строку описания"""
+    def _clean_description_line(line: str) -> Optional[str]: # Очищает строку описания
         line = line.strip()
         if line.startswith('!--'):
             line = line[3:].strip()

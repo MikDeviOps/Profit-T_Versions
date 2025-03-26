@@ -1,0 +1,6 @@
+services:
+  bot:
+    volumes:
+      - //pilot.ru/Soft/Distr/CASH66.BET:/app/logs:ro
+    environment:
+      - LOG_FOLDER=/app/logs

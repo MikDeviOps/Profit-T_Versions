@@ -6,13 +6,11 @@ from bot.keyboards import (
     create_main_keyboard,
     create_authors_keyboard,
     create_reply_keyboard,
-    create_back_to_authors_keyboard, create_welcome_keyboard
+    create_back_to_authors_keyboard
 )
 from bot.services.reporter import create_author_report
 from bot.check_updates import check_updates
 from aiogram.utils.markdown import hbold, hitalic
-from aiogram.types import ChatMemberUpdated
-from aiogram.filters import ChatMemberUpdatedFilter, IS_NOT_MEMBER, IS_MEMBER
 
 router = Router()
 
@@ -26,11 +24,13 @@ async def cmd_start(message: Message):
 {hbold('Автор:')} Михаил Горчаков (@Mikdevops)
 {hbold('Версия:')} 1.0
 {hbold('GitHub:')} https://github.com/MikDeviOps
+{hbold('GitHub-Project:')} https://github.com/MikDeviOps/Profit-T_Versions
 
 {hbold('Основные возможности:')}
 🔹 Автоматический мониторинг изменений
 🔹 Отслеживание версий файлов конфигурации
 🔹 История изменений по разработчикам
+🔹 Ежедневная сверка изменений в 22:30
 
 {hbold('Команды:')}
 /start - Главное меню
@@ -107,43 +107,3 @@ async def callback_back_to_main(callback: CallbackQuery):
         "Главное меню:",
         reply_markup=create_main_keyboard()
     )
-
-
-@router.chat_member(ChatMemberUpdatedFilter(IS_NOT_MEMBER >> IS_MEMBER))
-async def welcome_new_member(event: ChatMemberUpdated, bot: Bot):
-    """Приветствие нового участника с большой кнопкой"""
-    # Игнорируем, если это сам бот
-    if event.new_chat_member.user.id == bot.id:
-        return
-
-    welcome_text = """
-🎉 Добро пожаловать в группу мониторинга изменений «Профи-Т»!
-
-Нажмите кнопку 🚀 СТАРТ ниже, чтобы начать работу.
-    """
-
-    await bot.send_message(
-        chat_id=event.chat.id,
-        text=welcome_text,
-        reply_markup=create_welcome_keyboard()
-    )
-
-
-@router.message(F.text.in_(["🚀 СТАРТ", "/start"]))
-async def cmd_start(message: Message, bot: Bot):
-    """Обработчик большой кнопки СТАРТ и команды /start"""
-    info_text = f"""
-{hbold('🤖 Бот мониторинга изменений «Профи-Т»')}
-
-{hbold('Проект:')} Кассовая программа «Профи-Т»
-{hbold('Автор:')} Михаил Горчаков (@Mikdevops)
-    """
-
-    await message.answer(
-        info_text,
-        parse_mode='HTML',
-        reply_markup=create_reply_keyboard()
-    )
-
-    # Показываем последние изменения
-    await check_updates(bot)

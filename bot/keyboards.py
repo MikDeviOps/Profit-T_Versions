@@ -2,7 +2,6 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder, ReplyKeyboardBuilder
 from aiogram.types import InlineKeyboardButton, KeyboardButton
 from bot.config import WEB_VERSION_URL
 
-
 def create_main_keyboard():
     """Основная inline-клавиатура"""
     builder = InlineKeyboardBuilder()
@@ -54,9 +53,3 @@ def create_back_to_authors_keyboard():
     )
     builder.adjust(1)
     return builder.as_markup()
-
-def create_welcome_keyboard():
-    """Большая кнопка СТАРТ для новых участников"""
-    builder = ReplyKeyboardBuilder()
-    builder.add(KeyboardButton(text="🚀 СТАРТ"))
-    return builder.as_markup(resize_keyboard=True, one_time_keyboard=True)

@@ -50,6 +50,8 @@ bot/
 │   ├── keyboards.py
 │   ├── routers.py
 │   ├── check_updates.py
+|   ├── DockerFile
+|   ├── docker-compose.yml
 │   ├── services/
 │   │   ├── __init__.py
 │   │   ├── parser.py

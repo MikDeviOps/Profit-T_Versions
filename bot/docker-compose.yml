@@ -1,6 +1,16 @@
+version: '3.8'
+
 services:
-  bot:
+  profit-t-bot:
+    build: .
+    container_name: profit-t-bot
+    restart: unless-stopped
+    env_file:
+      - .env
     volumes:
-      - //pilot.ru/Soft/Distr/CASH66.BET:/app/logs:ro
-    environment:
-      - LOG_FOLDER=/app/logs
+      - type: bind
+        source: //pilot.ru/Soft/Distr/CASH66.BET
+        target: /app/logs
+        read_only: true
+        bind:
+          propagation: rshared

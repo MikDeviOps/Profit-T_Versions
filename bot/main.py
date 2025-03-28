@@ -121,7 +121,9 @@ async def scheduled_evening_check(bot: Bot, status_msg: StatusMessage):
 
 async def main():
     """Точка входа с обработкой ошибок запуска"""
+    bot = None  # Инициализация переменной заранее
     retry_count = 0
+
     while retry_count < MAX_RETRIES:
         try:
             bot = Bot(token=TELEGRAM_TOKEN)
@@ -134,7 +136,7 @@ async def main():
             asyncio.create_task(scheduled_evening_check(bot, status_msg))
 
             await dp.start_polling(bot)
-            break
+            return  # Успешный выход
 
         except TelegramNetworkError as e:
             retry_count += 1
@@ -144,7 +146,7 @@ async def main():
             print(f"🔴 Критическая ошибка: {e}")
             break
         finally:
-            if 'bot' in locals():
+            if bot is not None:  # Явная проверка на None
                 await bot.session.close()
 
 

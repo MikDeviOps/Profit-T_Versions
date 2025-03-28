@@ -1,55 +1,39 @@
 from aiogram.utils.keyboard import InlineKeyboardBuilder, ReplyKeyboardBuilder
 from aiogram.types import InlineKeyboardButton, KeyboardButton
 from bot.config import WEB_VERSION_URL
+from typing import List
 
-def create_main_keyboard():
+def create_main_keyboard() -> InlineKeyboardBuilder.as_markup:
     """Основная inline-клавиатура"""
-    builder = InlineKeyboardBuilder()
-    builder.add(
+    buttons = [
         InlineKeyboardButton(text="🔄 Обновить", callback_data="refresh"),
         InlineKeyboardButton(text="👤 По авторам", callback_data="show_authors"),
         InlineKeyboardButton(text="🌐 Веб-версия", url=WEB_VERSION_URL)
-    )
-    builder.adjust(2, 1)
-    return builder.as_markup()
+    ]
+    return InlineKeyboardBuilder().add(*buttons).adjust(2, 1).as_markup()
 
-def create_authors_keyboard(authors: list):
+def create_authors_keyboard(authors: List[str]) -> InlineKeyboardBuilder.as_markup:
     """Клавиатура со списком авторов"""
     builder = InlineKeyboardBuilder()
-    for author in sorted(authors):
-        builder.add(InlineKeyboardButton(
-            text=author,
-            callback_data=f"author_{author}"
-        ))
-    builder.add(InlineKeyboardButton(
-        text="⬅️ Назад",
-        callback_data="back_to_main"
-    ))
-    builder.adjust(2)
-    return builder.as_markup()
+    builder.add(*[
+        InlineKeyboardButton(text=author, callback_data=f"author_{author}")
+        for author in sorted(authors)
+    ])
+    builder.add(InlineKeyboardButton(text="⬅️ Назад", callback_data="back_to_main"))
+    return builder.adjust(2).as_markup()
 
-def create_reply_keyboard():
+def create_reply_keyboard() -> ReplyKeyboardBuilder.as_markup:
     """Обычная reply-клавиатура"""
-    builder = ReplyKeyboardBuilder()
-    builder.add(
+    buttons = [
         KeyboardButton(text="/start"),
         KeyboardButton(text="/check")
-    )
-    builder.adjust(2)
-    return builder.as_markup(resize_keyboard=True)
+    ]
+    return ReplyKeyboardBuilder().add(*buttons).adjust(2).as_markup(resize_keyboard=True)
 
-def create_back_to_authors_keyboard():
+def create_back_to_authors_keyboard() -> InlineKeyboardBuilder.as_markup:
     """Клавиатура для возврата к авторам"""
-    builder = InlineKeyboardBuilder()
-    builder.add(
-        InlineKeyboardButton(
-            text="⬅️ К списку авторов",
-            callback_data="back_to_authors"
-        ),
-        InlineKeyboardButton(
-            text="↩️ В главное меню",
-            callback_data="back_to_main"
-        )
-    )
-    builder.adjust(1)
-    return builder.as_markup()
+    buttons = [
+        InlineKeyboardButton(text="⬅️ К списку авторов", callback_data="back_to_authors"),
+        InlineKeyboardButton(text="↩️ В главное меню", callback_data="back_to_main")
+    ]
+    return InlineKeyboardBuilder().add(*buttons).adjust(1).as_markup()
